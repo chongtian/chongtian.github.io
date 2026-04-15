@@ -1,0 +1,82 @@
+---
+title: "Can today’s AI truly understand oil & gas lease clauses?"
+description: ""
+datetime: "2026-03-13"
+image: "/blog_assets/og-cover.png"
+url: "/blog/ai-og-lease-provision-1"
+tags:
+  - ai
+  - oil and gas
+---
+
+# Can today’s AI truly understand oil & gas lease clauses?
+
+I ran a small experiment.
+
+I made several oil & gas leases (all sensitive information removed) and asked AI models to analyze them and return structured JSON in this format:
+
+```json
+{
+    "𝘱𝘳𝘰𝘷𝘪𝘴𝘪𝘰𝘯": "𝘗𝘙𝘖𝘝𝘐𝘚𝘐𝘖𝘕 𝘕𝘈𝘔𝘌", 
+    "𝘳𝘦𝘴𝘱𝘰𝘯𝘴𝘦": "𝘠𝘦𝘴/𝘕𝘰", 
+    "𝘳𝘦𝘧𝘦𝘳𝘦𝘯𝘤𝘦": "𝘚𝘶𝘱𝘱𝘰𝘳𝘵𝘪𝘯𝘨 𝘭𝘢𝘯𝘨𝘶𝘢𝘨𝘦 𝘧𝘳𝘰𝘮 𝘵𝘩𝘦 𝘭𝘦𝘢𝘴𝘦"
+}
+```
+
+Then I compared the AI’s output against a human lease analyst’s review.
+
+(For the purpose of the test, I assumed the human analysis was the gold standard.)
+
+## 𝐏𝐞𝐧𝐧𝐬𝐲𝐥𝐯𝐚𝐧𝐢𝐚 𝐒𝐭𝐚𝐭𝐞 𝐋𝐞𝐚𝐬𝐞 (44 𝐩𝐫𝐨𝐯𝐢𝐬𝐢𝐨𝐧𝐬)
+
+Initial prompt:
+
+- ChatGPT: 34/44 correct
+- Gemini 3: 35/44 correct
+
+→ ~77–80% accuracy
+
+After refining the prompt with clearer guidance on nuanced and uncommon provisions:
+
+- ChatGPT: 37/44 correct
+- Gemini 3: 39/44 correct
+
+→ ~84–89% accuracy
+
+## 𝐍𝐞𝐰 𝐌𝐞𝐱𝐢𝐜𝐨 𝐋𝐞𝐚𝐬𝐞 (14 𝐩𝐫𝐨𝐯𝐢𝐬𝐢𝐨𝐧𝐬)
+
+With refined the prompt:
+
+- ChatGPT: 9/14
+- Gemini 3: 10/14
+
+→ ~64–71% accuracy
+
+## 𝐓𝐞𝐱𝐚𝐬 𝐋𝐞𝐚𝐬𝐞 (14 𝐩𝐫𝐨𝐯𝐢𝐬𝐢𝐨𝐧𝐬)
+
+With refined the prompt:
+
+- ChatGPT: 12/14
+- Gemini 3: 11/14
+
+→ ~78–85% accuracy
+
+* 𝘴𝘪𝘥𝘦 𝘯𝘰𝘵𝘦: 𝘐𝘯𝘵𝘦𝘳𝘦𝘴𝘵𝘪𝘯𝘨𝘭𝘺, 𝘢𝘧𝘵𝘦𝘳 𝘳𝘦-𝘳𝘦𝘷𝘪𝘦𝘸𝘪𝘯𝘨 𝘵𝘩𝘦 𝘛𝘦𝘹𝘢𝘴 𝘭𝘦𝘢𝘴𝘦 𝘮𝘺𝘴𝘦𝘭𝘧, 𝘐 𝘣𝘦𝘭𝘪𝘦𝘷𝘦 𝘵𝘩𝘦 𝘈𝘐 𝘮𝘢𝘺 𝘩𝘢𝘷𝘦 𝘤𝘰𝘳𝘳𝘦𝘤𝘵𝘭𝘺 𝘪𝘥𝘦𝘯𝘵𝘪𝘧𝘪𝘦𝘥 13 𝘰𝘳 𝘦𝘷𝘦𝘯 𝘢𝘭𝘭 14 𝘱𝘳𝘰𝘷𝘪𝘴𝘪𝘰𝘯𝘴. 𝘏𝘶𝘮𝘢𝘯𝘴 𝘮𝘢𝘬𝘦 𝘮𝘪𝘴𝘵𝘢𝘬𝘦𝘴 𝘵𝘰𝘰. *
+
+**𝐖𝐡𝐚𝐭’𝐬 𝐧𝐨𝐭𝐚𝐛𝐥𝐞?**
+
+- No RAG
+- No fine-tuning
+- No agent workflow
+- No external clause library
+
+Just prompt engineering. That alone pushed performance close to 90% in some cases. That’s promising.
+
+Now imagine layering:
+
+- RAG with curated lease libraries
+- Structured clause taxonomies
+- Agentic validation loops
+- Confidence scoring + human-in-the-loop review
+
+I don’t see AI replacing land analysts. I do see AI augmenting them, reducing manual review time, improving consistency, and catching what humans might miss. The real opportunity isn’t hype. It’s workflow design.

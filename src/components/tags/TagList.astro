@@ -1,0 +1,21 @@
+---
+import TagLink from "./TagLink.astro";
+
+type Props = {
+  tags: string[];
+};
+
+const { tags } = Astro.props;
+---
+
+<nav aria-label="Tags">
+  <ul class="flex flex-wrap gap-2 list-none p-0 m-0">
+    {
+      tags.map((tag) => (
+        <li>
+          <TagLink tag={tag} />
+        </li>
+      ))
+    }
+  </ul>
+</nav>

@@ -1,0 +1,122 @@
+---
+title: "How to create Web API service with ASP.Net Core in Ubuntu"
+description: ""
+datetime: "2021-10-14"
+image: ""
+url: "/blog/asp-net-core-linux"
+tags:
+  - asp-net
+  - linux
+---
+
+# How to create Web API service with ASP.Net Core in Ubuntu
+
+I developed a Web API service using ASP.NET Core and wanted to deploy it to a public server so that others could access and use it. To achieve this, I decided to create a virtual machine on AWS and deploy the service there. I chose a Linux (Ubuntu) environment because it is more cost‑effective than a Windows instance. After creating an AWS virtual machine running Ubuntu 18.04 LTS, I connected to the server remotely and began setting up and deploying my service.
+
+## Step 1: Install Apache
+Naturally, I chose Apache as the web server. There is extensive documentation available online explaining how to install Apache on Ubuntu. In my case, the setup was straightforward—I simply ran the following command in the terminal.
+```bash
+sudo apt-get install apache2
+```
+
+## Step 2 Install dotnet core runtime
+Follow the [Microsoft document](https://docs.microsoft.com/en-us/dotnet/core/install/linux-ubuntu) to install .Net on Ubuntu. 
+
+## Step 3: Upload API service (to do)
+I publish my API service to a folder, as I will manually deploy it to my server. This is the profile I use.
+
+![profile](/blog_assets/asp-net-core-linux-1.jpg)
+
+After generating the application binaries, I compressed them into a ZIP file for deployment. While using an FTP client is a common way to upload files to a server, I preferred not to install additional software on my local machine. Since I was already using PuTTY to connect to the server, I leveraged its companion tool (such as PSCP) to upload the ZIP file instead. 
+
+```bash
+pscp -sftp -i pathto\Your_AWS_Key_File.ppk pathto\your_file_to_upload ubuntu@Your_Aws_Public_IP:/home/ubuntu/
+```
+
+Once the upload was complete, I extracted the contents to /var/www/myservice. At this point, the server contained all the necessary binaries for running the service.
+
+## Step 4: Create Linux service in Ubuntu
+I can use command like dotnet myservice.dll to run my API service. This is good when people wants to verify if the service can be run during development. In the real world, the service shall be automatically started. This can be done by using systemctl in Linux.
+
+First, create a service file,
+
+```bash
+sudo nano /etc/systemd/system/myservice.service 
+```
+
+enter the below content, and save the file. The configurations here are quite self explainable.
+
+```config
+[Unit]
+# the display name of your service
+Description=My Web Service 
+
+[Service]
+# path to your service dll file
+WorkingDirectory=/var/www/path/to/your/service
+# execute your dll file
+ExecStart=/usr/bin/dotnet /var/www/path/to/your/service/MyService.dll
+Restart=always
+# Restart service after 10 seconds if the dotnet service crashes:
+RestartSec=10
+KillSignal=SIGINT
+# ID of your service
+SyslogIdentifier=my_service
+# if the service needs specific user or user group, you can specify here
+Group=nogroup
+User=nobody
+Environment=Production
+
+[Install]
+WantedBy=multi-user.target
+```
+
+Next, I enable this service, and start it.
+
+```bash
+sudo systemctl enable myservice.service
+sudo systemctl start myservice.service
+```
+
+I run the below command to check the status of the service. There shall be no error in the status.
+
+```bash
+sudo systemctl status myservice.service
+```
+
+## Step 5: Configure Apache
+The API service runs on port 5000 by default. However, this port is not typically exposed to external traffic, which means the service cannot be accessed directly from outside the server. To make the API available publicly, I configured Apache2 as a reverse proxy, allowing it to forward incoming HTTP requests to the backend service running on port 5000.
+With this setup, Apache listens on standard HTTP ports (such as 80) and transparently routes requests to the ASP.NET Core application, enabling external access while keeping the backend service isolated.
+
+First, create a new conf file in /etc/apache2/sites-available
+
+```bash
+sudo nano /etc/apache2/sites-available/myservice.conf
+```
+
+and enter the below content. This configuration basically tells Apache that when a http call is made to myservice.mydomain.com, pass it to http://127.0.0.1:5000, which is my web API service.
+
+```config
+# My Web Application Servic
+<VirtualHost *:80>
+    ProxyPreserveHost On
+    ProxyPass / http://127.0.0.1:5000/
+    ProxyPassReverse / http://127.0.0.1:5000/
+    ServerName myservice.mydomain.com
+    ServerAlias *.myservice.mydomain.com
+    ErrorLog ${APACHE_LOG_DIR}/error.log
+    CustomLog ${APACHE_LOG_DIR}/access.log common
+</VirtualHost>
+```
+
+Next, create symlink in /etc/apache2/sites-enable
+
+```bash
+sudo ln -s /etc/apache2/sites-available/myservice.conf /etc/apache2/sites-enable/myservice.conf
+```
+
+Finally, restart apache and I can access my Web service.
+
+```bash
+sudo systemctl restart apache2
+```

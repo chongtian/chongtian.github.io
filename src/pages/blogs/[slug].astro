@@ -1,0 +1,54 @@
+---
+import { getCollection } from 'astro:content';
+import type { CollectionEntry } from 'astro:content';
+
+import Layout from '../../layouts/Layout.astro';
+import TagList from '../../components/tags/TagList.astro';
+
+export const getStaticPaths = async () => {
+    const blogs = await getCollection("blogs");
+    const paths = blogs.map(blog => {
+        return {
+            params: {
+                slug: blog.slug
+            },
+            props: {
+                blog
+            }
+        }
+    });
+
+    return paths;
+}
+
+type Props = {
+    blog: CollectionEntry<"blogs">
+}
+
+const {blog} = Astro.props;
+const {Content} = await blog.render();
+---
+
+<Layout title={blog.data.title}>
+    <section class="mt-12 px-4">
+        <div id="markdown" class="prose prose-lg mx-auto max-w-full lg:max-w-6xl">
+            <Content />
+            
+            {
+                blog.data.tags && (
+                    <h4 class="text-2xl font-semibold">Tags</h4>
+                    <TagList tags={blog.data.tags} />
+                )
+            }
+            
+        </div>
+    </section>
+
+    <script>
+        import { toggleMarkdownTheme } from "../../scripts/theme";
+
+        const theme = document.documentElement.dataset.theme;
+
+        toggleMarkdownTheme(theme)
+    </script>
+</Layout>

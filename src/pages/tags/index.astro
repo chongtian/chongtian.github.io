@@ -1,0 +1,36 @@
+---
+import { getCollection } from 'astro:content';
+import type { CollectionEntry } from 'astro:content';
+
+import Layout from '../../layouts/Layout.astro';
+import TagLink from "../../components/tags/TagLink.astro";
+
+import { getUniqueTags  } from "../../utils/tags";
+
+const blogs = await getCollection("blogs");
+const tags = getUniqueTags(blogs).sort((a, b) =>
+  a.localeCompare(b, undefined, { sensitivity: "base" }),
+);
+
+---
+
+<Layout title="List of blog tags">
+    <section class="py-12 bg-background">
+        <div class="container mx-auto px-4 max-w-4xl">
+
+            <h1 class="text-center text-3xl mb-10">Blog Tags:</h1>
+            <div class="space-y-6">
+                <ul class="flex flex-col gap-2 list-none p-0 m-0">
+                    {
+                        tags.map((tag) => (
+                            <li class="tag">
+                            <TagLink tag={tag} />
+                            </li>
+                        ))
+                    }
+                </ul>
+            </div>
+            
+        </div>
+    </section>
+</Layout>
