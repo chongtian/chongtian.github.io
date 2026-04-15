@@ -21,10 +21,6 @@ export const getStaticPaths = async () => {
     }));   
 }
 
-type Props = {
-    blog: CollectionEntry<"blogs">
-}
-
 const {tag, blogs} = Astro.props;
 
 ---
@@ -35,9 +31,9 @@ const {tag, blogs} = Astro.props;
 
             <h1 class="text-center text-3xl mb-10">Posts tagged with <span> {tag} </span>:</h1>
             <div class="space-y-6">
-            {blogs.map((blog: Props, index: number) => (
-                <BlogItem blog={blog} isFirst={index === 0} />
-            ))}
+                {blogs.map((blog: any, index: number) => (
+                    <BlogItem blog={blog} isFirst={index === 0} />
+                ))}
             </div>
             
         </div>
