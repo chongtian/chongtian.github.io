@@ -1,0 +1,63 @@
+---
+title: "Timezone-sensitive tests are a hidden source of CI headaches"
+description: ""
+datetime: "2026-03-13"
+image: "/blog_assets/sdet-cover.png"
+url: "/blog/timezone-in-test"
+tags:
+  - software test
+---
+
+# Timezone-sensitive tests are a hidden source of CI headaches
+
+You’ve probably seen this: Tests pass locally without issues, but fail in CI.
+
+Sometimes, the culprit is timezone differences. Your local machine might run in America/Chicago, while the CI environment typically runs in UTC.
+
+So how do you deal with it?
+
+One obvious idea is to change the timezone of the build machine/agent. In practice, this usually isn’t a good solution because:
+
+- You often don’t have permission to change the system timezone.
+- Even if you do, CI machines are usually shared, and changing the timezone could affect other builds or services.
+
+Another idea is setting an environment variable like TZ=America/Chicago. Sounds promising, but in my testing Chrome ignores this variable, so it doesn’t reliably affect browser-based tests.
+
+What about starting Chrome with an argument like:
+
+```config
+--timezone=America/Chicago
+```
+
+You’ll see this suggestion in many blog posts, but again, it didn’t work in my tests. Maybe I did something wrong.
+
+The only approach that worked consistently for me was using **Chrome DevTools Protocol (CDP)** and calling:
+
+```C#
+Emulation.setTimezoneOverride
+```
+
+This forces Chrome to emulate a specific timezone. It works but it still feels like a workaround. If tomorrow I need to run the same tests on Firefox or Safari, I’d have to figure out a different solution again.
+
+**The real best practice?** Design your tests so they are **timezone-insensitive whenever possible**.
+
+---
+
+## 𝐒𝐢𝐝𝐞 𝐭𝐡𝐨𝐮𝐠𝐡𝐭 1: 
+With Playwright you can set timezone for the test run with one line configuration. Everyone shall switch to Playwright (joking).
+
+## Side thought 2: 
+Tests that depend on **“today”** can also be tricky.
+
+I once had tests validating audit fields like create date and update date.
+
+Our nightly build ran around **18:30 Central Time (23:30 UTC)**. Occasionally, tests became flaky because of this sequence:
+
+1. A request is sent at **23:59:59 UTC**
+2. The service commits the transaction at **00:00:00 UTC**
+3. The database records the **next day**
+4. The test still expects **today**
+
+Result: intermittent failures.
+
+My solution at the time was admittedly simple: I rescheduled the nightly build so tests wouldn’t run near the UTC day boundary.

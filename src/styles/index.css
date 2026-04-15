@@ -1,0 +1,16 @@
+@import "theme.css";
+
+
+.tag {
+  display: inline-block;
+  padding: 0.35rem 0.75rem;
+  border-radius: 9999px;
+  background-color: #e5e7eb;
+  color: #374151;
+  font-size: 0.875rem;
+  text-decoration: none;
+}
+
+.tag:hover {
+  background-color: #d1d5db;
+}

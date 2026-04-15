@@ -1,0 +1,92 @@
+{
+    "basic": {
+        "name": "Chongtian Gao",
+        "job": "Software Quality Engineer | IT Business Analyst - Oil & Gas ",
+        "summary": "Senior SDET specializing in desktop and SaaS testing, with extensive Oil & Gas domain knowledge and strong IT Business Analysis experience, including deep expertise in land systems.",
+        "cv_file_name": "chongtian_gao_cv.pdf"
+    },
+    "experiences": [
+        {
+            "title": "Application Analyst | IT Business Analyst",
+            "sub_title": "Coterra Energy Inc.",
+            "years": "2025 - Present",
+            "details": "Supported end-to-end Land system operations by gathering requirements, managing Oracle EBS integrations, resolving production issues, performing complex SQL analysis, and leading UAT, data conversions, and compliance activities."
+        },
+        {
+            "title": "Software Quality Engineer",
+            "sub_title": "P2 Energy Solutions (an IFS Company)",
+            "years": "2020 - 2025",
+            "details": "Senior SDET specializing in automation-first QA, CI/CD modernization, and deep cross-layer testing (UI, API, DB), delivering major reductions in regression effort and build times across enterprise applications."
+        },
+        {
+            "title": "Software Quality Analyst",
+            "sub_title": "P2 Energy Solutions (an IFS Company)",
+            "years": "2013 - 2020",
+            "details": "Owned end-to-end quality strategy for enterprise applications by combining scalable automation with targeted exploratory and manual testing, integrating BDD-driven testing into CI/CD pipelines to reduce defects, accelerate releases, and ensure high-confidence validation across complex systems."
+        }
+    ],
+    "education": [
+        {
+            "title": "Master of Statistics",
+            "sub_title": "Rice University",
+            "years": "2011 - 2012",
+            "details": "Completed graduate-level coursework in Statistics at Rice University, including machine learning, linear regression, data visualization, and core statistical theory."
+        },
+        {
+            "title": "Master of Science in Biochemistry",
+            "sub_title": "Shanghai Jiao Tong University",
+            "years": "2002 - 2005",
+            "details": "Earlier academic training in biotechnology and biochemistry provides a strong foundation in data analysis, validation, and complex systems."
+        },
+        {
+            "title": "Bachelor of Science in Biotechnology",
+            "sub_title": "Shanghai Jiao Tong University",
+            "years": "1998 - 2002",
+            "details": "Earlier academic training in biotechnology and biochemistry provides a strong foundation in data analysis, validation, and complex systems."
+        }        
+    ],
+    "projects": [
+        {
+            "imageUrl": "kid_problem.png",
+            "title": "KidProblem",
+            "type": "Website",
+            "link": "https://github.com/chongtian/kid-problems"
+        },
+        {
+            "imageUrl": "vs-code-gherkin-plugin.png",
+            "title": "Review Gherkin Feature",
+            "type": "VS Code Plugin",
+            "link": "https://github.com/chongtian/ReviewGherkinOnSave"
+        },
+        {
+            "imageUrl": "sdet.png",
+            "title": "Automated Test",
+            "type": "Automation",
+            "link": "https://github.com/chongtian/software-testing-portfolio"
+        }
+    ],
+    "menuItems": [
+        {
+            "name": "About",
+            "link": "/"
+        },
+        {
+            "name": "Blog",
+            "link": "/blogs"
+        },
+        {
+            "name": "Tags",
+            "link": "/tags"
+        }
+    ],
+    "socialLinks": [
+        {
+            "iconName": "Github",
+            "link": "https://github.com/chongtiangao"
+        },
+        {
+            "iconName": "Linkedin",
+            "link": "https://www.linkedin.com/in/chongtian-gao-18a29b12/"
+        }
+    ]
+}
