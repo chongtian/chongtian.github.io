@@ -1,5 +1,5 @@
 # Chongtian Gao's Blogs
-I use (Astro Resume Theme)[https://github.com/wasutz/astro-resume-theme] as the base theme to build my personal website. I extended the original theme to support tags.
+I use [Astro Resume Theme](https://github.com/wasutz/astro-resume-theme) as the base theme to build my personal website. I extended the original theme to support tags.
 
 ## Notes
 ### All mdx or md files must contain the below metadata at the beginning of the file
