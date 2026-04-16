@@ -1,0 +1,56 @@
+---
+title: "Use AI to generate math practice problems"
+description: ""
+datetime: "2026-04-15"
+image: ""
+url: "/blog/ai-in-math-practice"
+tags:
+  - ai
+  - KidProblem
+---
+
+# Use AI to generate math practice problems
+
+I built a web app called *KidProblem* to help my son prepare for math competitions, so most of the problems come from AMC 8, AMC 10, AMC 12, and AIME. 
+That worked well for him. But when my 5th-grade daughter started using it, the problem was obvious: the questions were too difficult. 
+She needed a large set of practice problems at her level, especially with her upcoming math CBE test. And I didn’t have time to create them manually.
+
+So I started thinking—why not use AI?
+
+*KidProblem* already has fully functional RESTful APIs. If I can generate math problems in the right format, I can send them directly to the system and instantly expand the problem set. Instead of writing every question by hand, I can generate them on demand, tailored to her level.
+
+To make this work, I wrote a few Python scripts to automate the workflow. The program can generate math problems based on learning objectives published by the school district, or ones I define myself. It simply incorporates the objective into the prompt sent to the LLM.
+
+I also added a simple GUI so I can easily input objectives, and built support for both remote OpenAI APIs and local Ollama models.
+
+
+*KidProblem* supports rendering both LaTeX and Asymptote code. (If you’re not familiar with Asymptote, don’t worry, I wasn’t either at first 😄: https://asymptote.sourceforge.io/)
+
+LaTeX was the easy part. I expected AI to handle that well since it’s widely used in academic writing. Asymptote, on the other hand, is essential for diagrams and geometry problems, and I had no experience writing it myself.
+
+So I took a chance and included Asymptote in the prompt, hoping the AI could figure it out.
+
+The results exceeded my expectations.
+
+This is the text of one problem written by AI (I added a few line breaks to make it readable in my blog).
+```html
+The graph below shows the relationship between the number of hours worked and the amount earned. Which equation best describes this relationship?<br/>
+<img src="HOME-C0414-003_1.png" 
+alt="[asy]import graph; size(100); real lsf=0.5; pen dps=linewidth(0.7)+fontsize(10); defaultpen(dps); pen ds=black; real xmin=-1.5,xmax=6.5,ymin=-1.5,ymax=10.5; 
+draw((0,0)--(6,10)); dot((0,0)); dot((1,2)); dot((2,4)); dot((3,6)); dot((4,8)); dot((5,10)); label("(0,0)", (0,0), W); label("(1,2)", (1,2), N); 
+label("(2,4)", (2,4), N); label("(3,6)", (3,6), N); label("(4,8)", (4,8), N); label("(5,10)", (5,10), N); 
+xaxis(xmin,xmax,Ticks(Step=1.0,Size=2,NoZero),Arrows(6),above=true); 
+yaxis(ymin,ymax,Ticks(Step=2.0,Size=2,NoZero),Arrows(6),above=true); 
+label("Hours",(6,-0.5),S); label("Money Earned ($)",(0,10.5),N); [/asy]" /><br/>
+A. $y = 2x$<br/>
+B. $y = x + 2$<br/>
+C. $y = 2 + x$<br/>
+D. $y = x - 2$
+```
+
+It renders to this by *KidProblem*.
+![KidProblem](/blog_assets/ai-in-math-practice-1.png)
+
+Wonderful! I can now generate practice problems on demand, tailored to the right level. There’s still room to improve, but the core idea works, and that’s what matters.
+
+AI has real potential here.
