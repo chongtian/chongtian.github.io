@@ -10,7 +10,6 @@ title: "Hello World"
 description: "Hello World from Astro. "
 datetime: "2025-02-25"
 image: "/blog_assets/sdet.png"
-url: "/blog/hello-world"
 tags:
   - astro
   - test
@@ -21,7 +20,6 @@ tags:
 - description: this is the sub-title shown in the blog list
 - datetime: the date format shall be "yyyy-mm-dd"
 - image: this is the cover image of the blog. Save the image in the public/blog_assets folder or other folder under /public. The path to the image should **include the leading slash "/"**
-- url: in the format of "/blog/uid_of_the_blog"
 - tags: a list of tags
 
 ### How to refer an image inside the markdown
