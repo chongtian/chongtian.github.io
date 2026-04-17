@@ -1,0 +1,159 @@
+---
+title: "Using AI Agents to Reconcile Lease Data in Land Administration"
+description: ""
+datetime: "2026-04-17"
+image: "/blog_assets/og-cover.png"
+tags:
+  - ai
+  - oil and gas
+---
+
+# Using AI Agents to Reconcile Lease Data in Land Administration
+
+Land administration has always been a document-heavy, detail-oriented discipline. Lease analysts spend countless hours navigating document repositories, reading complex agreements, and reconciling what’s written on paper with what’s recorded in internal land systems. This work is critical, but it’s also repetitive and time-consuming.
+
+With the rise of AI agents, there’s a growing opportunity to offload some of this manual reconciliation work, not by replacing analysts, but by giving them a powerful new assistant.
+
+In this post, I’ll walk through a practical and technically feasible approach to using an AI agent to reconcile lease data, focusing on how such an agent would work, what tools it would need, and where human judgment still plays a critical role.
+
+## The Problem: Manual Reconciliation Doesn’t Scale
+If you ask a human lease analyst to find discrepancies between a lease agreement and the land system, they will typically:
+
+1. Search for the relevant lease documents using a lease number or internal ID
+2. Read the lease and extract key clauses
+3. Open the land system and review the stored lease record
+4. Compare the two sources and identify differences
+5. Decide whether differences matter and what needs to happen next
+
+This process works, but it’s slow, repetitive, and heavily dependent on individual expertise. As lease volumes grow, manual reconciliation quickly becomes a bottleneck.
+
+## How an AI Agent Fits In
+An AI agent can be designed to follow essentially the same workflow, but with a few important differences. Rather than acting as an autonomous decision-maker, the agent works as a goal-driven assistant that can search, extract, compare, and summarize, while leaving final decisions to humans.
+
+At a high level, the agent’s goal might be:
+```
+Identify and explain discrepancies between executed lease documents and lease records in the land system.
+```
+
+Let's break down how this plays out in practice.
+
+## AI Agent Workflow
+The AI agent mirrors the above workflow, with structured tools and guardrails.
+
+### Step 1: Search - Finding the Right Sources
+**Agent Actions**
+- Retrieve target lease identifiers from the Land System
+- Locate associated lease documents in the ECM system
+
+**Tools Required**
+- Land System Query Tool
+  - Input: filter criteria (lease number range, creation date, creator, operator, etc.)
+  - Output: list of lease IDs and metadata
+
+- Document Repository Search Tool
+  - Input: lease ID / lease number
+  - Output: document IDs, metadata, and extracted text (if available)
+
+
+### Step 2: Extract - Turning Contracts into Structured Data
+**Agent Actions**
+- Extract text from lease documents (via ECM or OCR fallback)
+- Identify predefined lease clauses using an LLM
+- Normalize clause values into structured representations
+
+**Tools Required**
+- Document Text Retrieval Tool
+  - Returns raw or OCR document text plus page references
+
+- Clause Extraction Tool
+  - Uses a domain-specific prompt to extract clauses such as:
+      - Lease term
+      - Royalty rate
+      - Bonus consideration
+      - Effective date
+      - Net/Gross acreage
+  - Outputs
+    - Structured clause objects:
+      ```json
+       {  
+         "clause_type": "Royalty",  
+         "value": "3/16",  
+         "normalized_value": 0.1875,  
+         "source_page": 4,  
+         "confidence": 0.96
+        }
+      ```
+
+
+### Step 3: Query - Retrieving the Land System Record
+**Agent Actions**
+- Retrieve the corresponding lease record from the land system
+
+**Tools Required**
+- Lease Detail API Tool
+  - Input: lease ID
+  - Output: structured lease data formatted consistently (e.g., JSON or Markdown)
+
+
+### Step 4: Analyze - Comparing and Classifying Differences
+**Agent Actions**
+- Compare normalized document clauses against land system fields
+- Identify discrepancies
+- Classify discrepancies using defined rules
+
+**Analysis Categories**
+- Exact Match or Equivalent
+- Minor Discrepancy, like decimal rounding
+- Major Discrepancy
+  - Financial terms differ
+  - Legal duration differences
+  - Missing or extra clauses
+
+**Important Guardrails**
+- The agent detects and explains discrepancies
+- The agent does not perform legal interpretation
+- Unclear or ambiguous cases are flagged as "Requires Human Review"
+
+
+### Step 5: Act - Closing the Loop with Humans
+**Agent Actions**
+- Prepare a reconciliation report
+- Notify human analysts
+
+**Tools Required**
+- Notification / Reporting Tool
+  - Formats results into human-readable output:
+    - Field-to-clause comparison
+    - Source document references (page, paragraph)
+    - Confidence levels
+    - Severity classification
+
+**Example Output**
+```markdown
+### Lease 12345 – Reconciliation Summary
+
+- **Royalty**
+  - Document: 3/16 (Page 4)
+  - System: 0.20
+  - Status: Major Discrepancy
+  - Confidence: High (0.96)
+
+- **Lease Term**
+  - Document: 5 years
+  - System: 5 years
+  - Status: Match
+```
+
+
+### Key Notes
+How does the agent actually know which steps to take, and in what order?
+
+Unlike a human analyst, an AI agent must be explicitly orchestrated. In practice, there are three common orchestration patterns: 
+- A Deterministic Structured Workflow
+- A Planner-Executor Model
+- Supervisor + State Machine
+
+Since Lease reconciliation is highly predictable, a Deterministic Structured Workflow shall fit this task well. 
+
+## Final Thoughts
+Lease reconciliation is a strong example of how AI agents can deliver immediate value in land administration. By designing agents that search, extract, normalize, compare, and explain, organizations can reduce manual effort, improve data quality, and let lease analysts focus on what they do best: applying judgment where it truly matters.
