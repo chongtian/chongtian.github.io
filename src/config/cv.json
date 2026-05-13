@@ -47,6 +47,12 @@
     ],
     "projects": [
         {
+            "imageUrl": "sdet.png",
+            "title": "Automated Test",
+            "type": "Automation",
+            "link": "https://github.com/chongtian/software-testing-portfolio"
+        },
+        {
             "imageUrl": "kid_problem.png",
             "title": "KidProblem",
             "type": "Website",
@@ -57,12 +63,12 @@
             "title": "Review Gherkin Feature",
             "type": "VS Code Plugin",
             "link": "https://github.com/chongtian/ReviewGherkinOnSave"
-        },
+        },        
         {
-            "imageUrl": "sdet.png",
-            "title": "Automated Test",
-            "type": "Automation",
-            "link": "https://github.com/chongtian/software-testing-portfolio"
+            "imageUrl": "portfolio-tracker.png",
+            "title": "Portfolio Tracker",
+            "type": "Website",
+            "link": "https://github.com/chongtian/portfolio-tracker"
         }
     ],
     "menuItems": [
