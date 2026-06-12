@@ -1,0 +1,48 @@
+---
+title: "Google App Script: a rapid application development platform"
+description: ""
+datetime: "2026-06-12"
+image: "/blog_assets/programming-cover.png"
+tags:
+  - google
+  - ai
+---
+
+# Google App Script: a rapid application development platform
+
+In my previous posts, I mentioned that I've been working on using LLMs to generate math practice questions for my KidProblems app. To support this, I built agents and workflows that automate the process of generating math questions. However, there's one major challenge: tokens aren't cheap, and my budget is limited. Naturally, I started looking for alternatives, and that's when I turned to the free version of ChatGPT.
+
+I already have a collection of high-quality, ready-to-use prompts for various math learning objectives. There are essentially two ways to use them in ChatGPT: Copy and paste each prompt individually, or Merge all prompts into one large prompt and use it at once
+
+At first glance, the second option seemed more efficient. But I quickly discovered that it doesn't work well. When the prompt becomes too long, the LLM struggles to follow all the instructions. While it can still generate math questions, it often fails to meet the specific requirements and constraints defined in the prompt.
+
+In contrast, when I use smaller, focused prompts for each learning objective, the results are much more accurate and consistent.
+
+So it became clear that I needed to stick with the first approach: copy and paste each prompt into ChatGPT one at a time. But then another question came up: Do I really have to open each Markdown file, select all the text, press Ctrl+C, and then Ctrl+V it into ChatGPT every single time?
+
+That felt repetitive and inefficient.
+I started thinking, could I build a simple tool that reads my prompt files and lets me copy them with a single click? Ideally, I'd just click a button for each prompt and then paste it into ChatGPT. That would save a lot of manual effort.
+
+Since the requirement is fairly simple, I didn’t want to over-engineer a solution. I experimented with a few options before finally discovering Google Apps Script.
+
+I only wish I had found it earlier.
+
+### Google App Script
+Google App Script is a rapid application development platform. You can find its document on the [official website](https://developers.google.com/apps-script/overview).
+
+For my use case, it allowed me to quickly build a lightweight web app using JavaScript. Here’s what I did:
+
+1. I uploaded all my Markdown prompt files to Google Drive so they could be easily accessed.
+2. In Google Apps Script, I created a new project and added an Index.html file for the frontend UI.
+3. Using the Code.gs (server-side) and Index.html (client-side), I wrote JavaScript functions to read the files from Google Drive and display them in a simple interface. Each prompt is associated with a button, making it easy to load and copy the content.
+4. Finally, I deployed the project as a web app, making it accessible from the browser.
+
+The end result is exactly what I needed: a minimal tool where I can click on a prompt, instantly copy it, and paste it into ChatGPT. No more opening files, no more repetitive copy-paste steps—just a clean, efficient workflow.
+
+This is a screenshot of this simple web app:
+
+![01](/blog_assets/google-app-script-intro-01.png)
+
+It's a small improvement, but it has saved me a surprising amount of time.
+
+You can access the app by clicking [this link](https://script.google.com/macros/s/AKfycbxb8V0c9ulAD7mQ8Tn3mB-tOM1xZ1denNZP0JyvvT9RRlAYUEtuU76gDM-pAqVB5L10/exec). 
