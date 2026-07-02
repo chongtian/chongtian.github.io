@@ -1,4 +1,0 @@
-User-agent: *
-Allow: /
-
-Sitemap: https://chongtian.github.io/sitemap-index.xml
