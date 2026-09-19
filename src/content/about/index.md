@@ -11,9 +11,14 @@ Senior application support professional with 10+ years of experience in upstream
 
 ## Professional Experiences
 
+### Quorum Business Solutions
+**Senior Support Consultant**
+<br/> 2026 – Present   
+Delivers technical support across Quorum Revenue Accounting products, including QDO and QRA, by performing deep-dive SQL data analysis, troubleshooting complex software issues, and optimizing operational workflows for enterprise revenue accounting systems.
+
 ### Coterra Energy Inc. (Merged with Devon Energy)   
 **Application Analyst | IT Business Analyst** 
-<br/> 2025 – Present   
+<br/> 2025 – 2026   
 Supported end-to-end Land system operations by gathering requirements, managing Oracle EBS integrations, resolving production issues, performing complex SQL analysis, and leading UAT, data conversions, and compliance activities.
 
 ### P2 Energy Solutions (an IFS company)   
