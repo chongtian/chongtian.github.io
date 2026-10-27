@@ -14,7 +14,7 @@ Senior application support professional with 10+ years of experience in upstream
 ### Quorum Business Solutions
 **Senior Support Consultant**
 <br/> 2026 – Present   
-Delivers technical support across Quorum Revenue Accounting products, including QDO and QRA, by performing deep-dive SQL data analysis, troubleshooting complex software issues, and optimizing operational workflows for enterprise revenue accounting systems.
+Delivers technical support across Quorum Revenue Upstream Suite products, including QDO (Quorum Division Order) and QRA (Quorum Revenue Accounting), by performing deep-dive SQL data analysis, troubleshooting complex software issues, and optimizing operational workflows for enterprise revenue accounting systems.
 
 ### Coterra Energy Inc. (Merged with Devon Energy)   
 **Application Analyst | IT Business Analyst** 
